@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'FSF-CSF';
+  title = 'Client Side Foundation';
+  page = "Main";
+  instruction = "Welcome";
 }

@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  registration_url: "http://localhost:3000/register"
 };
