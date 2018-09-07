@@ -1,59 +1,105 @@
 <form #myForm="ngForm" (ngSubmit)="processForm(myForm)" fxLayout="column" fxLayoutGap="10px">
   <mat-form-field>
-    <input type="email" placeholder="Email" #emailField="ngModel" pattern='^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$' name="email" matInput required ngModel>
+    <input type="email" placeholder="Email" #emailField="ngModel" pattern='^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
+      name="email" matInput required ngModel>
     <mat-hint>Eg. tanahteck@email.com</mat-hint>
     <mat-error *ngIf="emailField.hasError('required') && myForm.touched">
       You must enter an email!
     </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input type="password" placeholder="Password" #passwordField="ngModel" name="password" minlength="8" matInput required ngModel>
-    <mat-hint>Eg. abcdef</mat-hint>
-    <mat-error *ngIf="passwordField.hasError('required') && myForm.touched">
-      You must enter a password!
+    <mat-error *ngIf="emailField.hasError('pattern') && myForm.touched">
+      Please enter a valid email!
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
+    <input type="password" placeholder="Password" #passwordField="ngModel" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9@#$]+$"
+      name="password" minlength="8" matInput required ngModel>
+    <mat-hint>Password requirements:
+      <ul>
+        <li>Have at least 8 characters</li>
+        <li>Use both uppercase and lowercase letters</li>
+        <li>Include one more numerical digits</li>
+        <li>Include one of these special characters @, #, $</li>
+      </ul>
+    </mat-hint>
+    <mat-error *ngIf="passwordField.hasError('required') && myForm.touched">
+      You must enter a password!
+    </mat-error>
+    <mat-error *ngIf="passwordField.hasError('pattern') && myForm.touched">
+      Your password must fulfill the requirement!
+    </mat-error>
+    <mat-error *ngIf="passwordField.hasError('minlength') && myForm.touched">
+      Your password must be a minimum of 8 characters!
+    </mat-error>
+  </mat-form-field>
+
+  <br>
+  <br>
+  <br>
+
+  <mat-form-field>
     <input type="text" placeholder="User Name" #usernameField="ngModel" name="username" matInput required ngModel>
-    <mat-hint>Eg. abcdef</mat-hint>
+    <mat-hint>Eg. tanahteck</mat-hint>
     <mat-error *ngIf="usernameField.hasError('required') && myForm.touched">
       You must enter a user name!
     </mat-error>
   </mat-form-field>
 
-  <mat-radio-group #genderField="ngModel" name="gender" required ngModel>
+  <mat-radio-group #genderField="ngModel" name="gender" placeholder="Gender" required ngModel>
     <mat-radio-button value="M">Male</mat-radio-button>
     <mat-radio-button value="F">Female</mat-radio-button>
   </mat-radio-group>
 
   <mat-form-field>
-    <input matInput name="dateofbirth" [matDatepicker]="picker" placeholder="Date of Birth" required ngModel>
+    <input matInput #dateofbirthField="ngModel" name="dateofbirth" [matDatepicker]="picker" placeholder="Date of Birth"
+      required ngModel>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+    <mat-hint>You must be at least 18 years old to join this site!</mat-hint>
+    <mat-error *ngIf="dateofbirthField.hasError('required') && myForm.touched">
+      You must state your birth date!
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <textarea matInput placeholder="Address" #addressField="ngModel" name="address" required ngModel></textarea>
+    <mat-hint>Enter your residential address</mat-hint>
+    <mat-error *ngIf="addressField.hasError('required') && myForm.touched">
+      You must state your residential address!
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-select placeholder="Country" #countryField="ngModel" name="country" required ngModel>
-      <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
+      <mat-option *ngFor="let code of countryCode" [value]="code.value">
+        {{code.viewValue}}
       </mat-option>
     </mat-select>
+    <mat-hint>Enter your country of birth</mat-hint>
+    <mat-error *ngIf="countryField.hasError('required') && myForm.touched">
+      You must state your country of birth!
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <input type="text" placeholder="Contact Number" #contactNumberField="ngModel" name="contactNumber" matInput
       required ngModel>
-    <mat-hint>Eg. 92352646</mat-hint>
+    <mat-hint>Contact number requirements:
+      <ul>
+        <li>(, +, -, space, and ) are allowed</li>
+        <li>Eg (065) 96994361</li>
+      </ul>
+    </mat-hint>
     <mat-error *ngIf="contactNumberField.hasError('required') && myForm.touched">
       You must enter a contact number!
     </mat-error>
+    <mat-error *ngIf="contactNumberField.hasError('pattern') && myForm.touched">
+      Your contact must fulfill the requirement!
+    </mat-error>
   </mat-form-field>
+
+  <br>
+  <br>
 
   <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="8px">
     <button type="reset" mat-button mat-raised-button color="primary">

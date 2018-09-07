@@ -4,7 +4,7 @@ import { BackendService } from '../../services/backend/backend.service';
 import { User } from '../../model/user';
 import { Router } from '@angular/router';
 
-export interface Food {
+export interface Country {
   value: string;
   viewValue: string;
 }
@@ -17,7 +17,7 @@ export interface Food {
 export class RegistrationFormComponent implements OnInit {
   errorMsg: string = "";
 
-  foods: Food[] = [
+  countryCode: Country[] = [
     { value: 'SGP', viewValue: 'Singapore' },
     { value: 'MYS', viewValue: 'Malaysia' },
     { value: 'IND', viewValue: 'Indonesia' }
